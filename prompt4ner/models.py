@@ -282,8 +282,10 @@ class Prompt4NER(PreTrainedModel):
         if self.lstm_layers > 0:
             self.lstm = nn.LSTM(input_size = config.hidden_size, hidden_size = config.hidden_size//2, num_layers = lstm_layers,  bidirectional = True, dropout = 0.1, batch_first = True)
 
-        self.left_boundary_classfier = EntityBoundaryPredictor(config, self.prop_drop)
-        self.right_boundary_classfier = EntityBoundaryPredictor(config, self.prop_drop)
+        print("wow", config)
+        print("wow", self.prop_drop)
+        self.left_boundary_classfier = EntityBoundaryPredictorBak(config, self.prop_drop)
+        self.right_boundary_classfier = EntityBoundaryPredictorBak(config, self.prop_drop)
         # self.entity_classifier = EntityTypePredictor(config, config.hidden_size, entity_type_count)
         self.init_weights()
 

@@ -51,7 +51,7 @@ class Prompt4NERTrainer(BaseTrainer):
         # byte-pair encoding
 
         self._tokenizer = AutoTokenizer.from_pretrained(args.tokenizer_path,
-                                                        local_files_only = True,
+                                                        local_files_only = False,
                                                         do_lower_case=args.lowercase,
                                                         cache_dir=args.cache_path,
                                                         use_fast = False)
@@ -79,11 +79,11 @@ class Prompt4NERTrainer(BaseTrainer):
         clip_v = None
         if args.withimage:
             clip_v = transformers.CLIPVisionModel.from_pretrained('openai/clip-vit-base-patch32')
-        config = AutoConfig.from_pretrained(args.model_path, cache_dir=args.cache_path)
-        model = model_class.from_pretrained(args.model_path,
+        config = AutoConfig.from_pretrained(args.tokenizer_path, cache_dir=args.cache_path)
+        model = model_class.from_pretrained(args.tokenizer_path,
                                             ignore_mismatched_sizes=True,
                                             # proxies = {'http': '10.15.82.42:7890'},
-                                            local_files_only = True,
+                                            local_files_only = False,
                                             config = config,
                                             # Prompt4NER model parameters
                                             entity_type_count=input_reader.entity_type_count,
